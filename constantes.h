@@ -1,10 +1,10 @@
 #ifndef CONSTANTES_H
 #define CONSTANTES_H
 
-const QString VERSION_PROG = "0.2.0";
+const QString VERSION_PROG = "0.2.1";
 const QString NOM_PROG = "Rami";
 const QString ORGANISATION = "JND-Software";
-const QString COPYRIGHT = "@ 2007-2014 JND-Software Inc";
+const QString COPYRIGHT = "@ 2007-2015 JND-Software Inc";
 
 enum	PERIODEJEU { ATTENTE, DEBUT1PARTIE, JOUEURSJOUE, FIN1PARTIE,
                         ESTJOUE, NORDJOUE, OUESTJOUE, SUDJOUE };

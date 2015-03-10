@@ -78,3 +78,6 @@ unix:!mac {
                 pixmap \
                 desktop
 }
+
+DISTFILES += \
+    README

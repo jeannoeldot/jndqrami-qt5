@@ -211,6 +211,7 @@ private:
 
     bool		m_f_EtatPartie;
     int         m_timerId;
+    bool        m_f_timerActif;
     bool		m_f_Fin1partie;
     PERIODEJEU	m_periodeJeu;
     int         m_nombredejoueur;

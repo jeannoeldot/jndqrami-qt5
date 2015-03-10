@@ -137,6 +137,7 @@ CRami::CRami(QWidget *parent)
 
     m_periodeJeu = ATTENTE;
     m_f_EtatPartie = false;
+    m_f_timerActif = false;
 }
 
 void CRami::debuterJeu()
@@ -167,8 +168,9 @@ void CRami::debuterJeu()
     melangerCartes();
 
     m_periodeJeu = DEBUT1PARTIE;
-    m_timerId = startTimer( m_tempo_timer );
     m_f_EtatPartie = true;
+    m_f_timerActif = true;
+    m_timerId = startTimer( m_tempo_timer );
 }
 
 void CRami::timerEvent( QTimerEvent * event )
@@ -176,6 +178,7 @@ void CRami::timerEvent( QTimerEvent * event )
   if( event->timerId() == m_timerId )
   {
     killTimer( m_timerId );
+    m_f_timerActif = false;
     switch( m_periodeJeu )
     {
       case DEBUT1PARTIE:
@@ -200,6 +203,7 @@ void CRami::timerEvent( QTimerEvent * event )
     {
       if( m_f_Fin1partie == false )
       {
+        m_f_timerActif = true;
         m_timerId = startTimer( m_tempo_timer );
       }
       /// sinon attend event souris...
@@ -269,6 +273,7 @@ void CRami::Ordi_Joueurs_Joue()
         jouerSonGagne( EST );
         m_quigagne = EST;
         m_periodeJeu = FIN1PARTIE;
+        m_f_timerActif = true;
         m_timerId = startTimer( m_tempo_timer );
       }
       else
@@ -290,6 +295,7 @@ void CRami::Ordi_Joueurs_Joue()
         jouerSonGagne( NORD );
         m_quigagne = NORD;
         m_periodeJeu = FIN1PARTIE;
+        m_f_timerActif = true;
         m_timerId = startTimer( m_tempo_timer );
       }
       else
@@ -313,6 +319,7 @@ void CRami::Ordi_Joueurs_Joue()
         jouerSonGagne( OUEST );
         m_quigagne = OUEST;
         m_periodeJeu = FIN1PARTIE;
+        m_f_timerActif = true;
         m_timerId = startTimer( m_tempo_timer );
       }
       else
@@ -2184,6 +2191,7 @@ void CRami::mousePressEvent( QMouseEvent * event )
   {
     m_f_Fin1partie = false;
     m_periodeJeu = DEBUT1PARTIE;
+    m_f_timerActif = true;
     m_timerId = startTimer( m_tempo_timer );
   }
   else
@@ -3240,6 +3248,7 @@ void CRami::gaucheReleased_Jetees()
                         m_quijoue = EST;
                     }
                 }
+                m_f_timerActif = true;
                 m_timerId = startTimer( m_tempo_timer );
             }
         }
@@ -3725,7 +3734,10 @@ void CRami::setNombreJoueur( const int nbj )
 
 void CRami::setArretPartie()
 {
-    killTimer( m_timerId );
+    if(true == m_f_timerActif)
+    {
+        killTimer( m_timerId );
+    }
     afficherImageDebutJeu();
     m_periodeJeu = ATTENTE;
     m_f_EtatPartie = false;
